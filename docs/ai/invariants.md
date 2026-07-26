@@ -12,14 +12,14 @@ Status legend:
 
 | ID | Invariant | Owner | Status | Consequence if violated |
 |----|-----------|-------|--------|--------------------------|
-| REP-INV-001 | Identical typed input, version, schema, codec, options and extension set encode to byte-identical output | Representation.Typed_Codecs, .JSON | planned | non-reproducible bytes; broken signing/caching |
-| REP-INV-002 | Duplicate logical fields (canonical, alias, or collision) are never accepted | Representation.Objects (+ .JSON.Parser) | proven (collision) | ambiguous decode; smuggled overrides |
+| REP-INV-001 | Identical typed input, version, schema, codec, options and extension set encode to byte-identical output | Representation.Typed_Codecs, .JSON (+ .JSON.Documents) | proven (JSON canonical) | non-reproducible bytes; broken signing/caching |
+| REP-INV-002 | Duplicate logical fields (canonical, alias, or collision) are never accepted | Representation.Objects (+ .JSON.Parser, .JSON.Documents) | proven (collision) | ambiguous decode; smuggled overrides |
 | REP-INV-003 | Numeric overflow is never accepted or silently wrapped | Representation.Numbers (+ .Values decimal) | proven (integers) | corrupted values |
 | REP-INV-004 | Invalid UTF-8 is rejected | Representation.Text (Phase 1) | planned | mojibake; injection |
 | REP-INV-005 | Limits are enforced before any prohibited growth | Representation.Limits (+ .JSON.Lexer, .JSON.Parser) | proven (tokenizer + parser) | memory/CPU denial of service |
 | REP-INV-006 | Typed object decoding is field-order independent | Representation.Objects | planned | order-dependent bugs |
 | REP-INV-007 | Absent and null remain distinct | Representation.Optionals | planned | lost patch/merge semantics |
-| REP-INV-008 | Canonical encoding is idempotent | Representation.Documents.Canonicalization | planned | signing instability |
+| REP-INV-008 | Canonical encoding is idempotent | Representation.JSON.Documents | proven | signing instability |
 | REP-INV-009 | Encoding emits canonical field names only (aliases are decode-only) | Representation.Fields | planned | contract drift |
 | REP-INV-010 | No hidden mutable global registry, schema, version, or cache exists | (whole core) | audited | non-determinism; hidden coupling |
 | REP-INV-011 | Unknown-field behaviour is explicit (Reject/Ignore/Preserve) | Representation.Extensions | planned | silent data loss or injection |

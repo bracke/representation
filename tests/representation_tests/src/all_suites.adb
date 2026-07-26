@@ -7,6 +7,7 @@ with Escapes_Tests;
 with Lexer_Tests;
 with Parser_Tests;
 with Documents_Tests;
+with JSON_Documents_Tests;
 
 package body All_Suites is
 
@@ -23,6 +24,7 @@ package body All_Suites is
       Lexer_Tests.Add_Tests (Result);
       Parser_Tests.Add_Tests (Result);
       Documents_Tests.Add_Tests (Result);
+      JSON_Documents_Tests.Add_Tests (Result);
       return Result;
    end Suite;
 

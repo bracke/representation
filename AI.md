@@ -44,11 +44,13 @@ never touch HTTP, sockets, files, tasks, or persistence (§2, §3, §43).
 | `Representation.JSON` | Pure JSON codec root; child packages hold the concrete codec. | — |
 | `Representation.JSON.Lexer` | Deterministic incremental tokenizer; locations, raw values, byte limits. | REP-INV-005 |
 | `Representation.JSON.Parser` | Constant-space event parser; grammar, depth/count/work limits, duplicate keys. | REP-INV-002/005 |
+| `Representation.Documents` | Bounded in-memory JSON value tree (handle-based arena); builders, readers, structural equality. | caller-owned value; soft overflow |
+| `Representation.JSON.Documents` | JSON document codec: decode into a Document; encode Compact/Pretty/Canonical. | REP-INV-001/002/008 |
 
-Packages for later phases (documents, typed codecs, schemas, versions/
-migrations, typed JSON, envelopes/links/pagination, registry, testing support)
-are listed in `docs/PHASE_STATUS.md` and the design; they do not exist yet and
-must not be referenced until built.
+Packages for later phases (typed codecs, schemas, versions/migrations, typed
+JSON, envelopes/links/pagination, registry, testing support) are listed in
+`docs/PHASE_STATUS.md` and the design; they do not exist yet and must not be
+referenced until built.
 
 ## Ownership and lifetime rules
 

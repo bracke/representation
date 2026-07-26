@@ -10,7 +10,7 @@ on compilation alone (§43).
 | 1 | UTF-8 + scalar foundations (UTF-8, escaping, int/uint/decimal parsing, RFC 3339 timestamps; SPARK_Mode proof targets). Scalar->typed codec bindings fold into Phase 5. | **done** |
 | 2 | JSON tokenizer (incremental, locations, limits, malformed cases) | **done** |
 | 3 | JSON parser (arrays/objects/nesting, duplicate detection, event parser, work budget) | **done** |
-| 4 | Document model (bounded arena, builders/readers, equality, JSON document codec, canonicalization) | pending |
+| 4 | Document model (bounded arena, builders/readers, equality, JSON document codec, canonicalization) | **done** |
 | 5 | Typed contracts/codecs (fields, optional/null/default, arrays, objects, enums, variants, references, extensions) | pending |
 | 6 | Schemas (descriptors, builders, finalization, introspection, compatibility) | pending |
 | 7 | Versions + migrations (registry, graph validation, typed adapters, document migrations) | pending |
@@ -91,3 +91,28 @@ Done and building green (58/58 AUnit):
   trailing input, member/element/work-budget/total-value limits, duplicate-key
   detection (incl. sibling/nested non-duplicates and detection-off pass-through),
   and streaming equivalence across a 1-byte read buffer.
+
+## Phase 4 — detail
+
+Done and building green (73/73 AUnit):
+- `Representation.Documents` — the bounded in-memory JSON value tree. A Document
+  owns a fixed arena (flat node table + text pool); nodes reference each other
+  by opaque handle (`Node_Ref`), never by pointer. Builders
+  (`Add_*`/`Append`/`Insert`) return `No_Node` and latch `Overflowed` on
+  exhaustion; readers (`Kind`/`Bool_Value`/`Text`/`Length`/`Element`/`Member`/
+  `Find`); structural `Equal` (arrays in order, objects by matching keys
+  regardless of member order, numbers by exact decimal value).
+- `Representation.JSON.Documents` — the JSON document codec. `Decode` drives the
+  event parser to build a Document (escapes decoded to UTF-8; duplicate member
+  names rejected via arena lookup; failure returned as a `Decode_Result` with a
+  stable id, category, and location). `Encode` streams a Document to a sink in
+  three encodings: **Compact** (no whitespace, insertion order, numbers
+  verbatim), **Pretty** (indented), and **Canonical** (no whitespace, members
+  sorted by key bytes, numbers normalized to their exact canonical spelling).
+- Canonical output is deterministic and idempotent (REP-INV-001/008): equal
+  values encode byte-identically and re-encoding is a fixed point.
+- Tests: `documents_tests` (scalars, arrays, objects, nesting, order-insensitive
+  equality, exact number equality, arena overflow) and `json_documents_tests`
+  (decode scalars/structure/escapes/errors, compact round-trip, encode styles,
+  canonical reproducibility across member order + number spelling, canonical
+  idempotence).

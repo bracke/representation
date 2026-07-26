@@ -27,3 +27,9 @@ yet stable.
   growth, rejects duplicate object keys within an object (bounded, per-object,
   optional), and reports malformed grammar / trailing input / limit exhaustion
   as `Error` events with stable machine ids (REP-INV-002, REP-INV-005 evidence).
+- Phase 4 document model: `Representation.Documents` — a bounded in-memory JSON
+  value tree over a fixed arena (handle-based nodes, soft overflow, structural
+  equality with exact-value number comparison) — and `Representation.JSON.Documents`,
+  the JSON document codec that decodes into a Document and encodes it Compact,
+  Pretty, or Canonical. Canonical output sorts object members by key and
+  normalizes numbers, and is deterministic and idempotent (REP-INV-001/008).
