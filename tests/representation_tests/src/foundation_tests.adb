@@ -141,7 +141,7 @@ package body Foundation_Tests is
    procedure Test_Array_Source (T : in out Fixture) is
       pragma Unreferenced (T);
       use type Representation.Inputs.Read_Status;
-      Data : aliased constant Byte_Array := (10, 20, 30);
+      Data : aliased constant Byte_Array := [10, 20, 30];
       Src  : Representation.Inputs.Array_Source (Data'Access);
       Buf  : Byte_Array (1 .. 2);
       Last : Natural;

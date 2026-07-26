@@ -12,6 +12,7 @@ with Typed_Scalar_Tests;
 with Objects_Tests;
 with Variants_Tests;
 with Typed_Codecs_Tests;
+with Schemas_Tests;
 
 package body All_Suites is
 
@@ -33,6 +34,7 @@ package body All_Suites is
       Objects_Tests.Add_Tests (Result);
       Variants_Tests.Add_Tests (Result);
       Typed_Codecs_Tests.Add_Tests (Result);
+      Schemas_Tests.Add_Tests (Result);
       return Result;
    end Suite;
 

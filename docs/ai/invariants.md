@@ -31,7 +31,7 @@ Status legend:
 | REP-INV-017 | Sensitive values are omitted from diagnostics by default | Representation.Diagnostics, .Errors | planned | credential/PII leakage |
 | REP-INV-018 | Exact numerics are never silently rounded | Representation.Decimals | proven | financial corruption |
 | REP-INV-019 | Extensions cannot override core fields | Representation.Extensions | proven | contract subversion |
-| REP-INV-020 | Finalized registries and schemas are immutable | Representation.Codecs.Registries, .Schemas | planned | data races; drift |
+| REP-INV-020 | Finalized registries and schemas are immutable | Representation.Codecs.Registries, .Schemas | proven (schemas) | data races; drift |
 
 ## Phase 0 evidence (implemented so far)
 

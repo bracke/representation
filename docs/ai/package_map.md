@@ -17,6 +17,9 @@ Typed contracts/codecs (Phase 5, implemented):
 `.Values`, `.Optionals`, `.Enums`, `.Fields`, `.Objects`, `.Arrays`,
 `.Extensions`, `.Variants`, `.References`, `.Typed_Codecs`.
 
+Schemas (Phase 6, implemented):
+`.Schemas`, `.Schemas.Compatibility`.
+
 Later phases (planned, see `docs/PHASE_STATUS.md`):
-`.Schemas(.*)`, `.Versions`, `.Migrations(.*)`, `.Codecs(.Registries)`,
+`.Versions`, `.Migrations(.*)`, `.Codecs(.Registries)`,
 `.Envelopes`, `.Metadata`, `.Links`, `.Pagination`, `.Testing`.

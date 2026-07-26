@@ -56,8 +56,10 @@ never touch HTTP, sockets, files, tasks, or persistence (§2, §3, §43).
 | `Representation.Variants` (generic) | Discriminator-bound variant dispatch. | REP-INV-012 |
 | `Representation.References` | Bounded, non-empty typed reference value. | value type |
 | `Representation.Typed_Codecs` (generic) | End-to-end typed codec: JSON source→doc→validate→Read; Write→doc→JSON sink. | composes the layer |
+| `Representation.Schemas` | Declarative object schema (fields + type kinds + unknown policy); immutable after Finalize; schema-driven Validate. | REP-INV-020 |
+| `Representation.Schemas.Compatibility` | Directional read-compatibility check between two schemas. | Compatibility_Failure |
 
-Packages for later phases (schemas, versions/migrations, typed-JSON convenience,
+Packages for later phases (versions/migrations, typed-JSON convenience,
 envelopes/links/pagination, registry, testing support) are listed in
 `docs/PHASE_STATUS.md` and the design; they do not exist yet and must not be
 referenced until built.

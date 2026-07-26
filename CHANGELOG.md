@@ -42,3 +42,8 @@ yet stable.
   cannot override core fields — REP-INV-019), `.Arrays` (typed reader),
   `.Variants` (discriminator-bound dispatch — REP-INV-012), `.References`
   (bounded typed reference), and the `.Typed_Codecs` generic end-to-end codec.
+- Phase 6 schemas: `Representation.Schemas` — declarative object schemas
+  (fields + declared type kinds + unknown policy), immutable after `Finalize`
+  (REP-INV-020), with schema-driven `Validate` (adds `field.type-mismatch`) —
+  and `Representation.Schemas.Compatibility`, a directional read-compatibility
+  check (missing-required / type-mismatch / unknown-rejected).

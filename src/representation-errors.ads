@@ -33,6 +33,8 @@ is
    Object_Duplicate_Field : constant String :=
      "representation.object.duplicate-field";
    Object_Unknown_Field  : constant String := "representation.object.unknown-field";
+   Field_Type_Mismatch   : constant String :=
+     "representation.field.type-mismatch";
 
    Enum_Unknown_Symbol   : constant String := "representation.enum.unknown-symbol";
    Variant_Unknown       : constant String :=

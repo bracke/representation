@@ -12,7 +12,7 @@ on compilation alone (§43).
 | 3 | JSON parser (arrays/objects/nesting, duplicate detection, event parser, work budget) | **done** |
 | 4 | Document model (bounded arena, builders/readers, equality, JSON document codec, canonicalization) | **done** |
 | 5 | Typed contracts/codecs (fields, optional/null/default, arrays, objects, enums, variants, references, extensions) | **done** |
-| 6 | Schemas (descriptors, builders, finalization, introspection, compatibility) | pending |
+| 6 | Schemas (descriptors, builders, finalization, introspection, compatibility) | **done** |
 | 7 | Versions + migrations (registry, graph validation, typed adapters, document migrations) | pending |
 | 8 | Typed JSON (direct decode/encode, compact/pretty/canonical, streaming, diagnostics) | pending |
 | 9 | Common models (envelopes, metadata, links, pagination, codec registry) | pending |
@@ -147,3 +147,25 @@ Done and building green (96/96 AUnit):
 - Tests: `typed_scalar_tests`, `objects_tests`, `variants_tests`,
   `typed_codecs_tests` (full order-independent decode / missing-field / syntax /
   encode / canonical round-trip).
+
+## Phase 6 — detail
+
+Done and building green (102/102 AUnit):
+- `Representation.Schemas` — a declarative object schema: an id, an ordered set
+  of fields (each a Fields descriptor + a declared `Type_Kind`), and an
+  unknown-member policy. Built incrementally, then `Finalize`d; once final the
+  builder is refused and only read-only introspection remains (REP-INV-020).
+  `Validate` checks a Document object against the schema — presence, duplicate,
+  and unknown-member rules (via `Objects`) plus each present field's declared
+  type — reporting the first violation with a category and stable id
+  (`object.*` or the new `field.type-mismatch`).
+- `Representation.Schemas.Compatibility` — a directional, fail-closed read
+  compatibility check between two schemas: it flags a required field the writer
+  does not guarantee (`Missing_Required`), an incompatibly retyped shared field
+  (`Type_Mismatch`), and — when the reader rejects unknowns — a field the writer
+  emits that the reader does not declare (`Unknown_Rejected`). `Kind_Any`,
+  number⊇integer, and string⊇enum/reference widen acceptance.
+- Tests (`schemas_tests`): build/introspect, immutability after finalize,
+  validate ok / type-mismatch / non-object root / missing / unknown, and the
+  four compatibility outcomes (identical, missing-required, type-mismatch,
+  unknown-rejected vs ignore-tolerated).
