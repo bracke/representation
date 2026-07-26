@@ -8,6 +8,7 @@ with Lexer_Tests;
 with Parser_Tests;
 with Documents_Tests;
 with JSON_Documents_Tests;
+with Typed_Scalar_Tests;
 
 package body All_Suites is
 
@@ -25,6 +26,7 @@ package body All_Suites is
       Parser_Tests.Add_Tests (Result);
       Documents_Tests.Add_Tests (Result);
       JSON_Documents_Tests.Add_Tests (Result);
+      Typed_Scalar_Tests.Add_Tests (Result);
       return Result;
    end Suite;
 
