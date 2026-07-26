@@ -5,11 +5,22 @@ is
    use type Interfaces.Unsigned_64;
 
    function Is_Digit (C : Character) return Boolean is (C in '0' .. '9');
-   function Digit_Of (C : Character) return Integer is
-     (Character'Pos (C) - Character'Pos ('0'));
+
+   subtype Digit_Value is Integer range 0 .. 9;
+   function Digit_Of (C : Character) return Digit_Value is
+     (Character'Pos (C) - Character'Pos ('0'))
+     with Pre => Is_Digit (C);
 
    --  Shared digit-grammar check on Text (D_First .. Text'Last): non-empty,
    --  all digits, and no leading zero unless the whole run is a single "0".
+   --  On success every character in the run is a digit.
+   function Valid_Digit_Run (Text : String; D_First : Integer) return Boolean
+     with Pre => D_First >= Text'First,
+          Post =>
+       (if Valid_Digit_Run'Result then
+          D_First <= Text'Last
+          and then (for all J in D_First .. Text'Last => Is_Digit (Text (J))));
+
    function Valid_Digit_Run (Text : String; D_First : Integer) return Boolean is
    begin
       if D_First > Text'Last then
@@ -19,6 +30,8 @@ is
          if not Is_Digit (Text (I)) then
             return False;
          end if;
+         pragma Loop_Invariant
+           (for all J in D_First .. I => Is_Digit (Text (J)));
       end loop;
       if Text (D_First) = '0' and then D_First < Text'Last then
          return False;  --  leading zero
@@ -45,6 +58,7 @@ is
          return;
       end if;
       for I in D_First .. Text'Last loop
+         pragma Loop_Invariant (Acc <= 0);
          declare
             D : constant Signed_Value := Signed_Value (Digit_Of (Text (I)));
          begin

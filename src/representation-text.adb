@@ -85,9 +85,11 @@ is
          return 0;
       end if;
       --  In valid UTF-8 the number of scalars is the number of non-continuation
-      --  bytes (bytes outside 16#80#..16#BF#).
-      for B of Data loop
-         if B < 16#80# or else B >= 16#C0# then
+      --  bytes (bytes outside 16#80#..16#BF#). Count is bounded by the position,
+      --  hence by Data'Length, so it cannot overflow Scalar_Count.
+      for I in Data'Range loop
+         pragma Loop_Invariant (Count <= Scalar_Count (I - Data'First));
+         if Data (I) < 16#80# or else Data (I) >= 16#C0# then
             Count := Count + 1;
          end if;
       end loop;

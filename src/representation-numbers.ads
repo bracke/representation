@@ -17,16 +17,20 @@ is
    --  an empty string, a sign other than a single leading '-', and any
    --  non-digit (so "1.5", "1e3", "+1", "01" are all Number_Syntax). Overflow
    --  beyond Signed_Value is Number_Overflow and never wraps.
+   --  The bound below excludes only a degenerate string whose last index is
+   --  Integer'Last; every string built from bytes satisfies it.
    procedure Parse_Signed
      (Text    : String;
       Value   : out Signed_Value;
-      Outcome : out Parse_Outcome);
+      Outcome : out Parse_Outcome)
+     with Pre => Text'Last < Integer'Last;
 
    --  Parse an unsigned JSON integer literal: (0|[1-9][0-9]*), no sign.
    procedure Parse_Unsigned
      (Text    : String;
       Value   : out Unsigned_Value;
-      Outcome : out Parse_Outcome);
+      Outcome : out Parse_Outcome)
+     with Pre => Text'Last < Integer'Last;
 
    --  Locale-neutral minimal images (no leading blank).
    function Image (Value : Signed_Value) return String;
