@@ -227,6 +227,44 @@ package body Representation.JSON.Documents is
      (if N < 10 then Character'Val (Character'Pos ('0') + N)
       else Character'Val (Character'Pos ('a') + N - 10));
 
+   function Zeros (N : Natural) return String is
+     (if N = 0 then "" else [1 .. N => '0']);
+
+   --  The canonical JSON spelling of an exact decimal: a plain decimal number
+   --  (never scientific), with no leading/trailing zeros beyond what the value
+   --  requires and no superfluous sign or point. Integers stay integers, so a
+   --  decoded integer survives a canonical round-trip. Deterministic and
+   --  idempotent: re-parsing renormalizes to the same value (trailing zeros are
+   --  stripped), so re-encoding is a fixed point (REP-INV-001/008).
+   function Canonical_Number
+     (D : Representation.Decimals.Decimal) return String
+   is
+      use Representation.Decimals;
+      Sig  : constant String  := Significand (D);   --  "0" for zero
+      E    : constant Integer := Integer (Exponent (D));
+      L    : constant Natural := Sig'Length;
+      Sign : constant String  := (if Is_Negative (D) then "-" else "");
+   begin
+      if Is_Zero (D) then
+         return "0";
+      elsif E >= 0 then
+         --  value = Sig * 10^E : an integer.
+         return Sign & Sig & Zeros (E);
+      else
+         declare
+            P : constant Natural := -E;   --  fractional digit count
+         begin
+            if P < L then
+               return Sign
+                 & Sig (Sig'First .. Sig'First + (L - P) - 1)
+                 & "." & Sig (Sig'First + (L - P) .. Sig'Last);
+            else
+               return Sign & "0." & Zeros (P - L) & Sig;
+            end if;
+         end;
+      end if;
+   end Canonical_Number;
+
    procedure Encode
      (Doc    : Representation.Documents.Document;
       Root   : Representation.Documents.Node_Ref;
@@ -345,7 +383,7 @@ package body Representation.JSON.Documents is
             begin
                Parse (To_String (T), D, Oc);
                if Oc = Decimal_Ok then
-                  Put_Str (Image (D));
+                  Put_Str (Canonical_Number (D));
                   return;
                end if;
             end;

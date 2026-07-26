@@ -14,6 +14,12 @@
 | REP-INV-001 | `JSON_Documents_Tests.Test_Canonical_Reproducible` (equal values, differing member order + number spelling → byte-identical canonical output) | proven (JSON canonical) |
 | REP-INV-008 | `JSON_Documents_Tests.Test_Canonical_Idempotent` (canonical(canonical(x)) = canonical(x)) | proven |
 | REP-INV-018 (doc) | `Documents_Tests.Test_Number_Equality` (1 = 1.0 = 10e-1 by exact value); canonical number normalization | proven |
+| REP-INV-006 | `Objects_Tests.Test_Lookup_Order_Independent`; `Typed_Codecs_Tests.Test_Decode_Order_Independent` | proven |
+| REP-INV-007 | `Typed_Scalar_Tests.Test_Optionals` (absent /= null; distinct fallbacks) | proven |
+| REP-INV-009 | `Objects_Tests.Test_Encode_Canonical_Names` (alias never emitted; canonical only) | proven |
+| REP-INV-011 | `Objects_Tests.Test_Validate_Unknown_Policy` (Reject/Ignore/Preserve) | proven |
+| REP-INV-012 | `Variants_Tests.Test_Dispatch_Errors` (undeclared discriminator -> Variant_Unknown) | proven |
+| REP-INV-019 | `Objects_Tests.Test_Extensions` (core field name refused as extension) | proven |
 
 Remaining REP-INV entries are `planned`; each gains a row here when its owning
 package and test land (see `docs/PHASE_STATUS.md`).

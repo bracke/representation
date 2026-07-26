@@ -11,7 +11,7 @@ on compilation alone (§43).
 | 2 | JSON tokenizer (incremental, locations, limits, malformed cases) | **done** |
 | 3 | JSON parser (arrays/objects/nesting, duplicate detection, event parser, work budget) | **done** |
 | 4 | Document model (bounded arena, builders/readers, equality, JSON document codec, canonicalization) | **done** |
-| 5 | Typed contracts/codecs (fields, optional/null/default, arrays, objects, enums, variants, references, extensions) | pending |
+| 5 | Typed contracts/codecs (fields, optional/null/default, arrays, objects, enums, variants, references, extensions) | **done** |
 | 6 | Schemas (descriptors, builders, finalization, introspection, compatibility) | pending |
 | 7 | Versions + migrations (registry, graph validation, typed adapters, document migrations) | pending |
 | 8 | Typed JSON (direct decode/encode, compact/pretty/canonical, streaming, diagnostics) | pending |
@@ -115,4 +115,35 @@ Done and building green (73/73 AUnit):
   equality, exact number equality, arena overflow) and `json_documents_tests`
   (decode scalars/structure/escapes/errors, compact round-trip, encode styles,
   canonical reproducibility across member order + number spelling, canonical
-  idempotence).
+  idempotence, and plain canonical number spelling).
+
+## Phase 5 — detail
+
+Done and building green (96/96 AUnit):
+- `Representation.Values` — typed scalar get/put between Document nodes and Ada
+  scalars via the exact Numbers/Decimals paths (overflow/malformed reported,
+  never wrapped — REP-INV-003/018).
+- `Representation.Optionals` — generic Absent / Null_Present / Value_Present
+  tri-state (REP-INV-007).
+- `Representation.Enums` — generic enum codec driven by a caller-supplied Symbol
+  function; unknown symbols rejected; never Enumeration'Image.
+- `Representation.Fields` — immutable field descriptor (canonical name,
+  decode-only aliases, presence policy, sensitivity) + `Field_Set` contract.
+- `Representation.Objects` — order-independent name-matched lookup (REP-INV-006);
+  Validate enforces required fields, rejects a field supplied under more than one
+  name (REP-INV-002), applies an explicit unknown-member policy Reject/Ignore/
+  Preserve (REP-INV-011); Put_Field emits canonical names only (REP-INV-009).
+- `Representation.Extensions` — bounded unknown-member capture; a core field's
+  name can never become an extension (REP-INV-019).
+- `Representation.Arrays` — ordered accessors + a generic typed-vector Reader.
+- `Representation.Variants` — discriminator-bound dispatch; an unrecognised
+  discriminator is never mapped to a default (REP-INV-012).
+- `Representation.References` — bounded, non-empty typed reference value.
+- `Representation.Typed_Codecs` — the end-to-end generic codec: JSON source →
+  document → contract validation → caller Read; caller Write → document →
+  Compact/Pretty/Canonical JSON sink.
+- Phase 4 canonical number spelling refined to plain decimal (never scientific),
+  so decoded integers survive a canonical round-trip while staying idempotent.
+- Tests: `typed_scalar_tests`, `objects_tests`, `variants_tests`,
+  `typed_codecs_tests` (full order-independent decode / missing-field / syntax /
+  encode / canonical round-trip).

@@ -192,6 +192,20 @@ package body JSON_Documents_Tests is
       Assert (Once = Twice, "canonical is a fixed point: " & Once);
    end Test_Canonical_Idempotent;
 
+   procedure Test_Canonical_Numbers (T : in out Fixture) is
+      pragma Unreferenced (T);
+      Ok : Boolean;
+      --  Keys a..e already sorted; every number canonicalizes to plain decimal.
+      In_JSON : constant String :=
+        "{""a"":1500,""b"":1.5,""c"":0.015,""d"":-2,""e"":10e-1}";
+      Out_JSON : constant String := Transcode (In_JSON, JD.Canonical, Ok);
+   begin
+      Assert (Ok, "decode ok");
+      --  Integers stay integers (no scientific notation); 10e-1 folds to 1.
+      Assert (Out_JSON = "{""a"":1500,""b"":1.5,""c"":0.015,""d"":-2,""e"":1}",
+              "plain canonical numbers: " & Out_JSON);
+   end Test_Canonical_Numbers;
+
    package Caller is new AUnit.Test_Caller (Fixture);
 
    procedure Add_Tests (Suite : AUnit.Test_Suites.Access_Test_Suite) is
@@ -215,6 +229,9 @@ package body JSON_Documents_Tests is
       Suite.Add_Test
         (Caller.Create ("JSON docs: canonical idempotent",
          Test_Canonical_Idempotent'Access));
+      Suite.Add_Test
+        (Caller.Create ("JSON docs: canonical numbers",
+         Test_Canonical_Numbers'Access));
    end Add_Tests;
 
 end JSON_Documents_Tests;

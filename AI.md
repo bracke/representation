@@ -45,10 +45,20 @@ never touch HTTP, sockets, files, tasks, or persistence (§2, §3, §43).
 | `Representation.JSON.Lexer` | Deterministic incremental tokenizer; locations, raw values, byte limits. | REP-INV-005 |
 | `Representation.JSON.Parser` | Constant-space event parser; grammar, depth/count/work limits, duplicate keys. | REP-INV-002/005 |
 | `Representation.Documents` | Bounded in-memory JSON value tree (handle-based arena); builders, readers, structural equality. | caller-owned value; soft overflow |
-| `Representation.JSON.Documents` | JSON document codec: decode into a Document; encode Compact/Pretty/Canonical. | REP-INV-001/002/008 |
+| `Representation.JSON.Documents` | JSON document codec: decode into a Document; encode Compact/Pretty/Canonical (plain canonical numbers). | REP-INV-001/002/008 |
+| `Representation.Values` | Typed scalar get/put between Document nodes and Ada scalars via exact paths. | REP-INV-003/018 |
+| `Representation.Optionals` (generic) | Absent / Null_Present / Value_Present tri-state. | REP-INV-007 |
+| `Representation.Enums` (generic) | Explicit symbol↔value enum codec; never Enumeration'Image. | contract-stable symbols |
+| `Representation.Fields` | Field descriptor (canonical name, decode-only aliases, presence, sensitivity); `Field_Set` contract. | REP-INV-009 |
+| `Representation.Objects` | Order-independent lookup + validation against a contract; canonical-name builder. | REP-INV-006/009/011 |
+| `Representation.Extensions` | Bounded unknown-member capture; core names refused. | REP-INV-019 |
+| `Representation.Arrays` | Ordered array accessors + generic typed-vector reader. | bounded |
+| `Representation.Variants` (generic) | Discriminator-bound variant dispatch. | REP-INV-012 |
+| `Representation.References` | Bounded, non-empty typed reference value. | value type |
+| `Representation.Typed_Codecs` (generic) | End-to-end typed codec: JSON source→doc→validate→Read; Write→doc→JSON sink. | composes the layer |
 
-Packages for later phases (typed codecs, schemas, versions/migrations, typed
-JSON, envelopes/links/pagination, registry, testing support) are listed in
+Packages for later phases (schemas, versions/migrations, typed-JSON convenience,
+envelopes/links/pagination, registry, testing support) are listed in
 `docs/PHASE_STATUS.md` and the design; they do not exist yet and must not be
 referenced until built.
 

@@ -9,8 +9,14 @@ Foundations (Phase 0, implemented):
 `.Limits`, `.Errors`, `.Paths`, `.Results`, `.Diagnostics`, `.Inputs`,
 `.Outputs`, `.Buffers`.
 
+Scalars + JSON codec (Phases 1-4, implemented):
+`.Text`, `.Numbers`, `.Decimals`, `.Timestamps`, `.Json_Escapes`,
+`.JSON`, `.JSON.Lexer`, `.JSON.Parser`, `.Documents`, `.JSON.Documents`.
+
+Typed contracts/codecs (Phase 5, implemented):
+`.Values`, `.Optionals`, `.Enums`, `.Fields`, `.Objects`, `.Arrays`,
+`.Extensions`, `.Variants`, `.References`, `.Typed_Codecs`.
+
 Later phases (planned, see `docs/PHASE_STATUS.md`):
-`.Values`, `.Documents(.*)`, `.Fields`, `.Enums`, `.Objects`, `.Arrays`,
-`.Variants`, `.Optionals`, `.Extensions`, `.References`, `.Typed_Codecs`,
 `.Schemas(.*)`, `.Versions`, `.Migrations(.*)`, `.Codecs(.Registries)`,
-`.JSON`, `.Envelopes`, `.Metadata`, `.Links`, `.Pagination`, `.Testing`.
+`.Envelopes`, `.Metadata`, `.Links`, `.Pagination`, `.Testing`.

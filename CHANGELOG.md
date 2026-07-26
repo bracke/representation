@@ -32,4 +32,13 @@ yet stable.
   equality with exact-value number comparison) — and `Representation.JSON.Documents`,
   the JSON document codec that decodes into a Document and encodes it Compact,
   Pretty, or Canonical. Canonical output sorts object members by key and
-  normalizes numbers, and is deterministic and idempotent (REP-INV-001/008).
+  normalizes numbers to plain decimal, and is deterministic and idempotent
+  (REP-INV-001/008).
+- Phase 5 typed contracts/codecs: `Representation.Values` (scalar bridge),
+  `.Optionals` (absent/null/present — REP-INV-007), `.Enums` (explicit symbols),
+  `.Fields` (descriptor + contract), `.Objects` (order-independent lookup,
+  required/duplicate/unknown-member handling, canonical-name encode —
+  REP-INV-006/009/011), `.Extensions` (bounded unknown-member capture that
+  cannot override core fields — REP-INV-019), `.Arrays` (typed reader),
+  `.Variants` (discriminator-bound dispatch — REP-INV-012), `.References`
+  (bounded typed reference), and the `.Typed_Codecs` generic end-to-end codec.

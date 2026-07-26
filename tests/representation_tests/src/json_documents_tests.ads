@@ -13,6 +13,7 @@ package JSON_Documents_Tests is
    procedure Test_Encode_Styles (T : in out Fixture);
    procedure Test_Canonical_Reproducible (T : in out Fixture);
    procedure Test_Canonical_Idempotent (T : in out Fixture);
+   procedure Test_Canonical_Numbers (T : in out Fixture);
 
    procedure Add_Tests (Suite : AUnit.Test_Suites.Access_Test_Suite);
 
