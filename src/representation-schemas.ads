@@ -66,6 +66,16 @@ package Representation.Schemas is
    --  Index of the field whose name matches Name (0 if none).
    function Find (S : Schema; Name : Byte_Array) return Natural;
 
+   --  Does the value node satisfy the declared type kind? (Kind_Any and a null
+   --  value are handled per the Type_Kind rules.)
+   function Accepts
+     (Doc  : Representation.Documents.Document;
+      N    : Representation.Documents.Node_Ref;
+      Kind : Type_Kind) return Boolean;
+
+   --  Human-readable name of a type kind, for diagnostics.
+   function Kind_Name (Kind : Type_Kind) return String;
+
    ---------------------------------------------------------------------------
    --  Validation.
    ---------------------------------------------------------------------------

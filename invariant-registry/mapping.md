@@ -24,6 +24,8 @@
 | Compatibility | `Schemas_Tests.Test_Compatibility` (missing-required / type-mismatch / unknown-rejected vs ignore) | proven (Compatibility_Failure semantics) |
 | REP-INV-014 | `Versions_Tests.Test_Migration_Graph` (unique source per version; forward-only; deterministic plan) | proven |
 | REP-INV-015 | `Versions_Tests.Test_Resolve` (too-new refused, never downgraded; unregistered unsupported) | proven |
+| REP-INV-016 (decode) | `Typed_JSON_Tests.Test_Multi_Issue_Paths` (each schema issue stamped with its `$.field` path) | proven |
+| REP-INV-017 | `Typed_JSON_Tests.Test_Redaction` (public value shown; credential/secret → `<redacted>`) | proven |
 
 Remaining REP-INV entries are `planned`; each gains a row here when its owning
 package and test land (see `docs/PHASE_STATUS.md`).

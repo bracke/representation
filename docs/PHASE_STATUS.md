@@ -14,7 +14,7 @@ on compilation alone (§43).
 | 5 | Typed contracts/codecs (fields, optional/null/default, arrays, objects, enums, variants, references, extensions) | **done** |
 | 6 | Schemas (descriptors, builders, finalization, introspection, compatibility) | **done** |
 | 7 | Versions + migrations (registry, graph validation, typed adapters, document migrations) | **done** |
-| 8 | Typed JSON (direct decode/encode, compact/pretty/canonical, streaming, diagnostics) | pending |
+| 8 | Typed JSON (direct decode/encode, compact/pretty/canonical, streaming, diagnostics) | **done** |
 | 9 | Common models (envelopes, metadata, links, pagination, codec registry) | pending |
 | 10 | Examples + integration guidance | pending |
 | 11 | Hardening (malformed corpus, properties, fuzzing, failure injection, concurrency, benchmarks) | pending |
@@ -188,3 +188,21 @@ Done and building green (107/107 AUnit):
   version-set immutability, migration graph (unique-source determinism,
   forward-only, plan ok/no-path), chain application over a Document, and
   migrate errors (no-path, failing transform).
+
+## Phase 8 — detail
+
+Done and building green (113/113 AUnit):
+- `Representation.Schemas.Diagnostics` — schema validation that reports every
+  issue (wrong root, missing required, field type mismatch, unknown member) as a
+  path-stamped diagnostic in a bounded `Diagnostic_Set`, rather than stopping at
+  the first (REP-INV-016). `Redacted_Value` renders a node's value for a message
+  but returns `<redacted>` for any redacted sensitivity class, so a sensitive
+  field's value never appears in diagnostics (REP-INV-017).
+- `Representation.JSON.Typed` — the schema-typed JSON convenience: `Decode`
+  parses a streaming source into a caller-owned Document and validates it against
+  a schema, accumulating parse and schema issues into one `Diagnostic_Set` (a
+  syntax failure is a single diagnostic located by offset/line/column); `Encode`
+  serializes a subtree in Compact/Pretty/Canonical.
+- Tests (`typed_json_tests`): redaction (public shown vs credential/secret
+  redacted), multi-issue collection with `$.id` / `$.name` path stamps, decode
+  valid / syntax / schema-invalid, and canonical typed encode.

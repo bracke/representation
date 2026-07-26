@@ -27,8 +27,8 @@ Status legend:
 | REP-INV-013 | Schema and field identifiers are stable and locale-neutral | Representation.Identifiers | proven | contract breakage on rename |
 | REP-INV-014 | Migration paths are deterministic | Representation.Migrations | proven | divergent upgrades |
 | REP-INV-015 | Unsupported versions never silently downgrade | Representation.Versions | proven | data corruption |
-| REP-INV-016 | Diagnostics identify the failing structured path | Representation.Diagnostics, .Paths | proven | unusable errors |
-| REP-INV-017 | Sensitive values are omitted from diagnostics by default | Representation.Diagnostics, .Errors | planned | credential/PII leakage |
+| REP-INV-016 | Diagnostics identify the failing structured path | Representation.Diagnostics, .Paths (+ .Schemas.Diagnostics) | proven | unusable errors |
+| REP-INV-017 | Sensitive values are omitted from diagnostics by default | Representation.Diagnostics, .Errors (+ .Schemas.Diagnostics) | proven | credential/PII leakage |
 | REP-INV-018 | Exact numerics are never silently rounded | Representation.Decimals | proven | financial corruption |
 | REP-INV-019 | Extensions cannot override core fields | Representation.Extensions | proven | contract subversion |
 | REP-INV-020 | Finalized registries and schemas are immutable | Representation.Codecs.Registries, .Schemas | proven (schemas) | data races; drift |

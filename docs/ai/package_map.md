@@ -23,6 +23,9 @@ Schemas (Phase 6, implemented):
 Versions + migrations (Phase 7, implemented):
 `.Versions`, `.Migrations`.
 
+Typed JSON (Phase 8, implemented):
+`.Schemas.Diagnostics`, `.JSON.Typed`.
+
 Later phases (planned, see `docs/PHASE_STATUS.md`):
 `.Codecs(.Registries)`, `.Envelopes`, `.Metadata`, `.Links`, `.Pagination`,
 `.Testing`.

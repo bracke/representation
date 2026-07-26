@@ -52,3 +52,8 @@ yet stable.
   `Representation.Migrations`, a forward-only migration-step set with unique
   source per version (deterministic paths — REP-INV-014), `Plan`, and a `Migrate`
   that applies the chain over a Document.
+- Phase 8 typed JSON: `Representation.Schemas.Diagnostics` — schema validation
+  that collects every issue as a path-stamped diagnostic (REP-INV-016) with
+  sensitivity redaction (REP-INV-017) — and `Representation.JSON.Typed`, the
+  convenience decode (source → document → schema diagnostics) and encode
+  (Compact/Pretty/Canonical). Adds a public `Schemas.Accepts`/`Kind_Name`.

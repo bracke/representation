@@ -66,8 +66,21 @@ package body Representation.Schemas is
       return 0;
    end Find;
 
+   function Kind_Name (Kind : Type_Kind) return String is
+     (case Kind is
+         when Kind_Any       => "any",
+         when Kind_Null      => "null",
+         when Kind_Boolean   => "boolean",
+         when Kind_Integer   => "integer",
+         when Kind_Number    => "number",
+         when Kind_String    => "string",
+         when Kind_Enum      => "enum",
+         when Kind_Reference => "reference",
+         when Kind_Array     => "array",
+         when Kind_Object    => "object");
+
    --  Does the value node satisfy the declared type kind?
-   function Kind_Matches
+   function Accepts
      (Doc : DM.Document; N : DM.Node_Ref; Kind : Type_Kind) return Boolean is
    begin
       case Kind is
@@ -98,7 +111,7 @@ package body Representation.Schemas is
          when Kind_Object =>
             return DM.Kind (Doc, N) = DM.Object_Node;
       end case;
-   end Kind_Matches;
+   end Accepts;
 
    procedure Validate
      (Doc    : DM.Document;
@@ -146,7 +159,7 @@ package body Representation.Schemas is
               Obj.Lookup (Doc, Node, S.Fields (I).Descr);
          begin
             if V /= DM.No_Node
-              and then not Kind_Matches (Doc, V, S.Fields (I).Kind)
+              and then not Accepts (Doc, V, S.Fields (I).Kind)
             then
                Set_Err (Err.Representation_Constraint,
                         Err.Field_Type_Mismatch, I);

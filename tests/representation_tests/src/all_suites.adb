@@ -14,6 +14,7 @@ with Variants_Tests;
 with Typed_Codecs_Tests;
 with Schemas_Tests;
 with Versions_Tests;
+with Typed_JSON_Tests;
 
 package body All_Suites is
 
@@ -37,6 +38,7 @@ package body All_Suites is
       Typed_Codecs_Tests.Add_Tests (Result);
       Schemas_Tests.Add_Tests (Result);
       Versions_Tests.Add_Tests (Result);
+      Typed_JSON_Tests.Add_Tests (Result);
       return Result;
    end Suite;
 
