@@ -18,7 +18,7 @@ on compilation alone (§43).
 | 9 | Common models (envelopes, metadata, links, pagination, codec registry) | **done** |
 | 10 | Examples + integration guidance | **done** |
 | 11 | Hardening (malformed corpus, properties, fuzzing, failure injection, concurrency, benchmarks) | **done** |
-| 12 | Release completion (docs, invariant mapping, proof gates, reproducibility, acceptance report) | pending |
+| 12 | Release completion (docs, invariant mapping, proof gates, reproducibility, acceptance report) | **done** |
 
 ## Phase 0 — detail
 
@@ -263,3 +263,19 @@ Done and building green (suite 125/125):
   hot path).
 - `fixtures/golden` + `fixtures/malformed` — illustrative reference samples; the
   authoritative corpus is the in-CI one above.
+
+## Phase 12 — detail
+
+Done — V1 acceptance:
+- **Proof gate**: `Representation.Text` and `Representation.Numbers` proved by
+  GNATprove `--level=2` — 53 checks (run-time, assertions, functional contracts,
+  initialization, termination), 0 unproved, 0 justified. Backs REP-INV-003/004
+  with machine-checked absence of overflow/wrap and run-time errors.
+- **Invariants**: all 20 covered — 19 proven, 1 audited (REP-INV-010). Registry
+  (`invariant-registry/mapping.md`) and `docs/ai/invariants.md` finalized.
+- **Acceptance report**: `docs/ACCEPTANCE.md` maps every invariant and gate to
+  its evidence with the verification commands.
+- **Reproducibility**: canonical output is deterministic by construction (no
+  clock/locale/env/random/global state) and verified under `TZ=UTC LC_ALL=C`.
+- **Release gate**: `check_representation --release` (surface + dependency
+  boundary + build/test/examples) passes; suite 125/125; all crates warning-free.

@@ -14,8 +14,8 @@ Status legend:
 |----|-----------|-------|--------|--------------------------|
 | REP-INV-001 | Identical typed input, version, schema, codec, options and extension set encode to byte-identical output | Representation.Typed_Codecs, .JSON (+ .JSON.Documents) | proven (JSON canonical) | non-reproducible bytes; broken signing/caching |
 | REP-INV-002 | Duplicate logical fields (canonical, alias, or collision) are never accepted | Representation.Objects (+ .JSON.Parser, .JSON.Documents) | proven (collision) | ambiguous decode; smuggled overrides |
-| REP-INV-003 | Numeric overflow is never accepted or silently wrapped | Representation.Numbers (+ .Values decimal) | proven (integers) | corrupted values |
-| REP-INV-004 | Invalid UTF-8 is rejected | Representation.Text (Phase 1) | planned | mojibake; injection |
+| REP-INV-003 | Numeric overflow is never accepted or silently wrapped | Representation.Numbers (+ .Values decimal) | proven (integers, SPARK) | corrupted values |
+| REP-INV-004 | Invalid UTF-8 is rejected | Representation.Text, .Json_Escapes | proven (SPARK + tests) | mojibake; injection |
 | REP-INV-005 | Limits are enforced before any prohibited growth | Representation.Limits (+ .JSON.Lexer, .JSON.Parser) | proven (tokenizer + parser) | memory/CPU denial of service |
 | REP-INV-006 | Typed object decoding is field-order independent | Representation.Objects | proven | order-dependent bugs |
 | REP-INV-007 | Absent and null remain distinct | Representation.Optionals | proven | lost patch/merge semantics |
@@ -45,5 +45,10 @@ Status legend:
   registries/contexts are caller-owned values (audited; enforced by the
   dependency-boundary check in the release tool once built).
 
-Test-to-invariant mapping is emitted by the release tooling (Phase 12); until
-then, the `Owner` column is the source of truth for where each invariant lands.
+The full test/proof evidence for each invariant is in
+`invariant-registry/mapping.md`, and the V1 acceptance status is summarized in
+`docs/ACCEPTANCE.md`. As of V1 all 20 invariants are proven (19) or audited (1):
+REP-INV-003/004 additionally carry GNATprove (SPARK) backing on
+`Representation.Numbers` and `Representation.Text`; REP-INV-010 is audited
+(structural absence of global mutable state, enforced by the dependency-boundary
+check in the release tool).

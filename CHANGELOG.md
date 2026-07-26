@@ -69,3 +69,8 @@ yet stable.
   with canonical-idempotence property, source/sink failure injection, 8-task
   concurrency), a `fuzz/representation_fuzz` stdin harness for external engines
   with a seed corpus, a `bench` throughput example, and reference fixtures.
+- Phase 12 release completion: GNATprove `--level=2` discharges all 53 SPARK
+  checks on `Text`/`Numbers` (backing REP-INV-003/004); all 20 invariants now
+  proven (19) or audited (1); `docs/ACCEPTANCE.md` maps every invariant and gate
+  to its evidence; canonical output verified reproducible across TZ/locale; the
+  `--release` gate passes. **V1 is feature-complete.**
