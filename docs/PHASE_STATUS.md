@@ -8,7 +8,7 @@ on compilation alone (§43).
 |-------|-------|--------|
 | 0 | Repository + foundations (Alire/GPR, root vocabulary, identifiers, paths, errors/results, limits, diagnostics, I/O abstractions, docs, invariant registry, Ada release tool) | **done** |
 | 1 | UTF-8 + scalar foundations (UTF-8, escaping, int/uint/decimal parsing, RFC 3339 timestamps; SPARK_Mode proof targets). Scalar->typed codec bindings fold into Phase 5. | **done** |
-| 2 | JSON tokenizer (incremental, locations, limits, malformed cases) | pending |
+| 2 | JSON tokenizer (incremental, locations, limits, malformed cases) | **done** |
 | 3 | JSON parser (arrays/objects/nesting, duplicate detection, event parser, work budget) | pending |
 | 4 | Document model (bounded arena, builders/readers, equality, JSON document codec, canonicalization) | pending |
 | 5 | Typed contracts/codecs (fields, optional/null/default, arrays, objects, enums, variants, references, extensions) | pending |
@@ -39,3 +39,26 @@ Remaining in Phase 0 (next):
   + dependency-boundary + build/test gates.
 - `docs/` set (ARCHITECTURE, QUICKSTART, RELEASE, package_map, prohibited_patterns,
   allowed_dependencies), `AI.md`, ADR index, `SECURITY.md`, `CONTRIBUTING.md`.
+
+## Phase 2 — detail
+
+Done and building green (49/49 AUnit):
+- `Representation.JSON` (Pure codec root) and `Representation.JSON.Lexer`
+  — a deterministic, incremental, pull-based JSON tokenizer (§22.1).
+- Reads bytes from a `Representation.Inputs.Source` through a fixed
+  `Read_Capacity` buffer; the source is bound as a discriminant so a
+  stack-allocated source and its lexer can be co-scoped safely.
+- Every token carries its start location (byte offset, 1-based line/column);
+  UTF-8 continuation bytes do not advance the column.
+- String tokens expose raw content (escapes intact, quotes stripped); number
+  tokens expose the validated RFC 8259 number text. Values accumulate into a
+  bounded `Value_Capacity` scratch.
+- Bounded/deterministic: no dynamic allocation, no unbounded lookahead. Limit
+  exhaustion (`Max_String_Bytes`, `Max_Input_Bytes`), malformed input, and
+  source failure surface as a `Tok_Error` with a stable machine error id;
+  end-of-input is `Tok_End_Of_Input`.
+- Tests (`lexer_tests`): structural tokens, literals, string/number values with
+  raw escapes, location tracking across leading newlines/spaces, streaming
+  equivalence across a 1-byte read buffer, malformed cases (leading zero,
+  truncated fraction/exponent, unterminated string, bad literal, unescaped
+  control, stray byte), and byte-limit enforcement.
