@@ -14,7 +14,7 @@ Status legend:
 |----|-----------|-------|--------|--------------------------|
 | REP-INV-001 | Identical typed input, version, schema, codec, options and extension set encode to byte-identical output | Representation.Typed_Codecs, .JSON | planned | non-reproducible bytes; broken signing/caching |
 | REP-INV-002 | Duplicate logical fields (canonical, alias, or collision) are never accepted | Representation.Objects | planned | ambiguous decode; smuggled overrides |
-| REP-INV-003 | Numeric overflow is never accepted or silently wrapped | Representation.Values, .JSON | planned | corrupted values |
+| REP-INV-003 | Numeric overflow is never accepted or silently wrapped | Representation.Numbers (+ .Values decimal) | proven (integers) | corrupted values |
 | REP-INV-004 | Invalid UTF-8 is rejected | Representation.Text (Phase 1) | planned | mojibake; injection |
 | REP-INV-005 | Limits are enforced before any prohibited growth | Representation.Limits | planned | memory/CPU denial of service |
 | REP-INV-006 | Typed object decoding is field-order independent | Representation.Objects | planned | order-dependent bugs |
