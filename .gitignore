@@ -1,0 +1,9 @@
+/obj/
+/lib/
+/config/
+/alire/
+bin/
+**/obj/
+**/config/
+**/alire/
+**/bin/
