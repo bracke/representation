@@ -2,6 +2,7 @@ with Foundation_Tests;
 with Text_Tests;
 with Numbers_Tests;
 with Decimals_Tests;
+with Timestamps_Tests;
 
 package body All_Suites is
 
@@ -13,6 +14,7 @@ package body All_Suites is
       Text_Tests.Add_Tests (Result);
       Numbers_Tests.Add_Tests (Result);
       Decimals_Tests.Add_Tests (Result);
+      Timestamps_Tests.Add_Tests (Result);
       return Result;
    end Suite;
 
