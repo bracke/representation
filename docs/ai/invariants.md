@@ -29,7 +29,7 @@ Status legend:
 | REP-INV-015 | Unsupported versions never silently downgrade | Representation.Versions | planned | data corruption |
 | REP-INV-016 | Diagnostics identify the failing structured path | Representation.Diagnostics, .Paths | proven | unusable errors |
 | REP-INV-017 | Sensitive values are omitted from diagnostics by default | Representation.Diagnostics, .Errors | planned | credential/PII leakage |
-| REP-INV-018 | Exact numerics are never silently rounded | Representation.Values (decimal) | planned | financial corruption |
+| REP-INV-018 | Exact numerics are never silently rounded | Representation.Decimals | proven | financial corruption |
 | REP-INV-019 | Extensions cannot override core fields | Representation.Extensions | planned | contract subversion |
 | REP-INV-020 | Finalized registries and schemas are immutable | Representation.Codecs.Registries, .Schemas | planned | data races; drift |
 
