@@ -17,7 +17,7 @@ on compilation alone (§43).
 | 8 | Typed JSON (direct decode/encode, compact/pretty/canonical, streaming, diagnostics) | **done** |
 | 9 | Common models (envelopes, metadata, links, pagination, codec registry) | **done** |
 | 10 | Examples + integration guidance | **done** |
-| 11 | Hardening (malformed corpus, properties, fuzzing, failure injection, concurrency, benchmarks) | pending |
+| 11 | Hardening (malformed corpus, properties, fuzzing, failure injection, concurrency, benchmarks) | **done** |
 | 12 | Release completion (docs, invariant mapping, proof gates, reproducibility, acceptance report) | pending |
 
 ## Phase 0 — detail
@@ -243,3 +243,23 @@ Done and building green (examples crate builds; every example runs):
   encodes a response envelope, all over the `Inputs.Source` / `Outputs.Sink`
   streaming abstractions. `docs/QUICKSTART.md` updated to list the examples and
   point at the integration guide.
+
+## Phase 11 — detail
+
+Done and building green (suite 125/125):
+- `hardening_tests` (in-CI): a ~30-input malformed corpus that must be rejected
+  without crashing (grammar, numbers, strings, invalid UTF-8 bytes, duplicate
+  members, excessive nesting under Strict); a deterministic splitmix64 fuzz
+  (fixed seed, 4000 rounds) asserting decode never raises and every accepted
+  input canonicalizes to a fixed point; a structural-equality canonical property;
+  source- and sink-failure injection surfacing `IO_Failure`; and an 8-task
+  concurrency test proving independent arenas never interfere (REP-INV-010).
+- `fuzz/representation_fuzz` — a path-pinned subcrate whose `fuzz_json` reads
+  stdin, decodes under `Strict_Limits`, canonically re-encodes, and prints a
+  verdict (`PANIC` + non-zero exit if the library ever raises). Seed corpus in
+  `corpus/`.
+- `examples/.../bench` — a deterministic throughput smoke benchmark
+  (~1.5e5 decode+canonical-encode ops/sec on a 171-byte document, allocation-free
+  hot path).
+- `fixtures/golden` + `fixtures/malformed` — illustrative reference samples; the
+  authoritative corpus is the in-CI one above.

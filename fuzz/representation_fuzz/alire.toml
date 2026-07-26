@@ -1,0 +1,23 @@
+name = "representation_fuzz"
+description = "Fuzz harnesses for the representation library"
+version = "0.1.0-dev"
+authors = ["Bent Bracke"]
+maintainers = ["Bent Bracke <bent@bracke.dk>"]
+maintainers-logins = ["bracke"]
+licenses = "MIT OR Apache-2.0 WITH LLVM-exception"
+website = ""
+tags = []
+
+executables = ["fuzz_json"]
+
+[[depends-on]]
+gnat_native = "=15.2.1"
+
+[[depends-on]]
+representation = "*"
+
+[[pins]]
+representation = { path = "../.." }
+
+[build-profiles]
+"*" = "development"

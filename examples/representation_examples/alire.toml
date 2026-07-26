@@ -9,7 +9,7 @@ website = ""
 tags = []
 
 executables = ["quickstart", "codec_roundtrip", "typed_record",
-               "schema_diagnostics", "envelope", "migrate"]
+               "schema_diagnostics", "envelope", "migrate", "bench"]
 
 [[depends-on]]
 gnat_native = "=15.2.1"

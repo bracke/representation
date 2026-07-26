@@ -65,3 +65,7 @@ yet stable.
   (codec_roundtrip, typed_record, schema_diagnostics, envelope, migrate) over the
   public API, and `docs/INTEGRATION.md` describing how a transport adapter wires
   the library in over the Source/Sink abstractions.
+- Phase 11 hardening: `hardening_tests` (malformed corpus, deterministic fuzz
+  with canonical-idempotence property, source/sink failure injection, 8-task
+  concurrency), a `fuzz/representation_fuzz` stdin harness for external engines
+  with a seed corpus, a `bench` throughput example, and reference fixtures.
