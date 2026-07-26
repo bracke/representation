@@ -17,6 +17,7 @@ with Versions_Tests;
 with Typed_JSON_Tests;
 with Models_Tests;
 with Envelopes_Tests;
+with Hardening_Tests;
 
 package body All_Suites is
 
@@ -43,6 +44,7 @@ package body All_Suites is
       Typed_JSON_Tests.Add_Tests (Result);
       Models_Tests.Add_Tests (Result);
       Envelopes_Tests.Add_Tests (Result);
+      Hardening_Tests.Add_Tests (Result);
       return Result;
    end Suite;
 
