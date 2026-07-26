@@ -6,7 +6,7 @@ on compilation alone (§43).
 
 | Phase | Scope | Status |
 |-------|-------|--------|
-| 0 | Repository + foundations (Alire/GPR, root vocabulary, identifiers, paths, errors/results, limits, diagnostics, I/O abstractions, docs skeleton, invariant registry, Ada release tool) | **in progress** |
+| 0 | Repository + foundations (Alire/GPR, root vocabulary, identifiers, paths, errors/results, limits, diagnostics, I/O abstractions, docs, invariant registry, Ada release tool) | **done** |
 | 1 | UTF-8 + scalar foundations (UTF-8 validation, escaping, signed/unsigned/decimal parsing, timestamps, scalar codecs, proof targets) | pending |
 | 2 | JSON tokenizer (incremental, locations, limits, malformed cases) | pending |
 | 3 | JSON parser (arrays/objects/nesting, duplicate detection, event parser, work budget) | pending |
