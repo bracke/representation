@@ -8,7 +8,8 @@ licenses = "MIT OR Apache-2.0 WITH LLVM-exception"
 website = ""
 tags = []
 
-executables = ["quickstart"]
+executables = ["quickstart", "codec_roundtrip", "typed_record",
+               "schema_diagnostics", "envelope", "migrate"]
 
 [[depends-on]]
 gnat_native = "=15.2.1"

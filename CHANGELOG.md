@@ -61,3 +61,7 @@ yet stable.
   (bounded models with document round-trip), `Representation.Envelopes` (standard
   data/meta/links/page/errors response envelope), and `Representation.Codecs`
   + `.Codecs.Registries` (immutable codec registry — REP-INV-020 registries).
+- Phase 10 examples + integration guidance: five runnable examples
+  (codec_roundtrip, typed_record, schema_diagnostics, envelope, migrate) over the
+  public API, and `docs/INTEGRATION.md` describing how a transport adapter wires
+  the library in over the Source/Sink abstractions.

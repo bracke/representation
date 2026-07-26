@@ -16,5 +16,21 @@ The foundation API in words:
 - `Representation.Limits` supplies the finite bounds every decoder must carry
   (`Default_Limits`, `Strict_Limits`).
 
-Typed codecs, schemas, and JSON land in later phases; see
-`docs/PHASE_STATUS.md`.
+## Runnable examples
+
+`examples/representation_examples` (build with `alr build`, run `./bin/<name>`):
+
+- **codec_roundtrip** — parse JSON into the document model, re-emit canonical.
+- **typed_record** — bind an Ada record to a JSON contract via `Typed_Codecs`
+  (order-independent decode, canonical encode).
+- **schema_diagnostics** — validate against a schema, printing every
+  path-stamped diagnostic; a `Credential` field's value is redacted.
+- **envelope** — assemble a `data`/`meta`/`links`/`page` response envelope.
+- **migrate** — resolve an incoming version and migrate a document to current.
+
+## Wiring it into a transport
+
+See `docs/INTEGRATION.md` for how a headless transport adapter (HTTP handler,
+message consumer, …) decodes a request body against a schema, redacts sensitive
+values from diagnostics, and encodes a response envelope — all over the
+`Inputs.Source` / `Outputs.Sink` streaming abstractions.

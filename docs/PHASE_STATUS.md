@@ -16,7 +16,7 @@ on compilation alone (§43).
 | 7 | Versions + migrations (registry, graph validation, typed adapters, document migrations) | **done** |
 | 8 | Typed JSON (direct decode/encode, compact/pretty/canonical, streaming, diagnostics) | **done** |
 | 9 | Common models (envelopes, metadata, links, pagination, codec registry) | **done** |
-| 10 | Examples + integration guidance | pending |
+| 10 | Examples + integration guidance | **done** |
 | 11 | Hardening (malformed corpus, properties, fuzzing, failure injection, concurrency, benchmarks) | pending |
 | 12 | Release completion (docs, invariant mapping, proof gates, reproducibility, acceptance report) | pending |
 
@@ -227,3 +227,19 @@ Done and building green (119/119 AUnit):
 - Tests (`models_tests`, `envelopes_tests`): metadata/links/pagination
   round-trips and rejections; envelope assembly + section accessors + errors;
   registry register/duplicate/lookup and post-finalize immutability.
+
+## Phase 10 — detail
+
+Done and building green (examples crate builds; every example runs):
+- `examples/representation_examples` gains five runnable programs over the
+  library's public API (`representation` only, per allowed dependencies):
+  **codec_roundtrip** (parse → canonical re-emit), **typed_record**
+  (`Typed_Codecs` order-independent decode + canonical encode), **schema_
+  diagnostics** (path-stamped diagnostics with a redacted `Credential` field),
+  **envelope** (data/meta/links/page assembly), and **migrate** (version resolve
+  + deterministic migration chain). The Phase 0 **quickstart** remains.
+- `docs/INTEGRATION.md` — how a transport adapter decodes a request body against
+  a schema (limits, diagnostics, redaction), resolves/migrates versions, and
+  encodes a response envelope, all over the `Inputs.Source` / `Outputs.Sink`
+  streaming abstractions. `docs/QUICKSTART.md` updated to list the examples and
+  point at the integration guide.
