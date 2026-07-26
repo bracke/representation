@@ -7,7 +7,7 @@ on compilation alone (§43).
 | Phase | Scope | Status |
 |-------|-------|--------|
 | 0 | Repository + foundations (Alire/GPR, root vocabulary, identifiers, paths, errors/results, limits, diagnostics, I/O abstractions, docs, invariant registry, Ada release tool) | **done** |
-| 1 | UTF-8 + scalar foundations (UTF-8 validation, escaping, signed/unsigned/decimal parsing, timestamps, scalar codecs, proof targets) | pending |
+| 1 | UTF-8 + scalar foundations (UTF-8, escaping, int/uint/decimal parsing, RFC 3339 timestamps; SPARK_Mode proof targets). Scalar->typed codec bindings fold into Phase 5. | **done** |
 | 2 | JSON tokenizer (incremental, locations, limits, malformed cases) | pending |
 | 3 | JSON parser (arrays/objects/nesting, duplicate detection, event parser, work budget) | pending |
 | 4 | Document model (bounded arena, builders/readers, equality, JSON document codec, canonicalization) | pending |
