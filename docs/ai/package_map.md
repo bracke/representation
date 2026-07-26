@@ -26,6 +26,9 @@ Versions + migrations (Phase 7, implemented):
 Typed JSON (Phase 8, implemented):
 `.Schemas.Diagnostics`, `.JSON.Typed`.
 
+Common models (Phase 9, implemented):
+`.Metadata`, `.Links`, `.Pagination`, `.Envelopes`, `.Codecs`,
+`.Codecs.Registries`.
+
 Later phases (planned, see `docs/PHASE_STATUS.md`):
-`.Codecs(.Registries)`, `.Envelopes`, `.Metadata`, `.Links`, `.Pagination`,
-`.Testing`.
+examples, hardening, and `.Testing` support.

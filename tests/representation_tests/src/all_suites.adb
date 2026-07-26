@@ -16,6 +16,7 @@ with Schemas_Tests;
 with Versions_Tests;
 with Typed_JSON_Tests;
 with Models_Tests;
+with Envelopes_Tests;
 
 package body All_Suites is
 
@@ -41,6 +42,7 @@ package body All_Suites is
       Versions_Tests.Add_Tests (Result);
       Typed_JSON_Tests.Add_Tests (Result);
       Models_Tests.Add_Tests (Result);
+      Envelopes_Tests.Add_Tests (Result);
       return Result;
    end Suite;
 

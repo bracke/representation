@@ -62,10 +62,13 @@ never touch HTTP, sockets, files, tasks, or persistence (§2, §3, §43).
 | `Representation.Migrations` | Forward-only, deterministic migration-step set; Plan + Migrate over a Document. | REP-INV-014 |
 | `Representation.Schemas.Diagnostics` | Multi-issue, path-stamped schema validation with sensitivity redaction. | REP-INV-016/017 |
 | `Representation.JSON.Typed` | Schema-typed JSON: decode (source→doc→diagnostics) + encode Compact/Pretty/Canonical. | composes decode+schema |
+| `Representation.Metadata` / `.Links` / `.Pagination` | Bounded common models with Document round-trip. | caller-owned values |
+| `Representation.Envelopes` | Standard response envelope (data/meta/links/page/errors). | document-only |
+| `Representation.Codecs.Registries` | Immutable codec-id → media-type registry. | REP-INV-020/010 |
 
-Packages for later phases (envelopes/links/pagination, codec registry, testing
-support) are listed in `docs/PHASE_STATUS.md` and the design; they do not exist
-yet and must not be referenced until built.
+Packages for later phases (examples, hardening, release completion) are listed
+in `docs/PHASE_STATUS.md`; they do not exist yet and must not be referenced
+until built.
 
 ## Ownership and lifetime rules
 

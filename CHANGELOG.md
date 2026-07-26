@@ -57,3 +57,7 @@ yet stable.
   sensitivity redaction (REP-INV-017) — and `Representation.JSON.Typed`, the
   convenience decode (source → document → schema diagnostics) and encode
   (Compact/Pretty/Canonical). Adds a public `Schemas.Accepts`/`Kind_Name`.
+- Phase 9 common models: `Representation.Metadata`, `.Links`, `.Pagination`
+  (bounded models with document round-trip), `Representation.Envelopes` (standard
+  data/meta/links/page/errors response envelope), and `Representation.Codecs`
+  + `.Codecs.Registries` (immutable codec registry — REP-INV-020 registries).

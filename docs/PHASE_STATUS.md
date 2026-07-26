@@ -15,7 +15,7 @@ on compilation alone (§43).
 | 6 | Schemas (descriptors, builders, finalization, introspection, compatibility) | **done** |
 | 7 | Versions + migrations (registry, graph validation, typed adapters, document migrations) | **done** |
 | 8 | Typed JSON (direct decode/encode, compact/pretty/canonical, streaming, diagnostics) | **done** |
-| 9 | Common models (envelopes, metadata, links, pagination, codec registry) | pending |
+| 9 | Common models (envelopes, metadata, links, pagination, codec registry) | **done** |
 | 10 | Examples + integration guidance | pending |
 | 11 | Hardening (malformed corpus, properties, fuzzing, failure injection, concurrency, benchmarks) | pending |
 | 12 | Release completion (docs, invariant mapping, proof gates, reproducibility, acceptance report) | pending |
@@ -206,3 +206,24 @@ Done and building green (113/113 AUnit):
 - Tests (`typed_json_tests`): redaction (public shown vs credential/secret
   redacted), multi-issue collection with `$.id` / `$.name` path stamps, decode
   valid / syntax / schema-invalid, and canonical typed encode.
+
+## Phase 9 — detail
+
+Done and building green (119/119 AUnit):
+- `Representation.Metadata` — a bounded key -> value-node map (unique keys, owned
+  key pool); `To_Object` / `From_Object`.
+- `Representation.Links` — a bounded set of rel -> href links (unique relations,
+  shared byte pool); renders to/from a `{ rel : href }` object.
+- `Representation.Pagination` — a pagination descriptor (limit / offset / total /
+  has_more + optional cursor) with type-checked `To_Object` / `From_Object`.
+- `Representation.Envelopes` — the standard response envelope assembling the
+  canonical sections `data` / `meta` / `links` / `page` / `errors` (omitting any
+  absent section) and reading them back; `Has_Errors`. Depends only on the
+  document model.
+- `Representation.Codecs` (namespace) and `Representation.Codecs.Registries` — a
+  bounded, caller-owned codec registry (id -> media type), immutable after
+  `Finalize` (REP-INV-020, registries half), with no global registry
+  (REP-INV-010).
+- Tests (`models_tests`, `envelopes_tests`): metadata/links/pagination
+  round-trips and rejections; envelope assembly + section accessors + errors;
+  registry register/duplicate/lookup and post-finalize immutability.
