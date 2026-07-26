@@ -9,7 +9,7 @@ on compilation alone (§43).
 | 0 | Repository + foundations (Alire/GPR, root vocabulary, identifiers, paths, errors/results, limits, diagnostics, I/O abstractions, docs, invariant registry, Ada release tool) | **done** |
 | 1 | UTF-8 + scalar foundations (UTF-8, escaping, int/uint/decimal parsing, RFC 3339 timestamps; SPARK_Mode proof targets). Scalar->typed codec bindings fold into Phase 5. | **done** |
 | 2 | JSON tokenizer (incremental, locations, limits, malformed cases) | **done** |
-| 3 | JSON parser (arrays/objects/nesting, duplicate detection, event parser, work budget) | pending |
+| 3 | JSON parser (arrays/objects/nesting, duplicate detection, event parser, work budget) | **done** |
 | 4 | Document model (bounded arena, builders/readers, equality, JSON document codec, canonicalization) | pending |
 | 5 | Typed contracts/codecs (fields, optional/null/default, arrays, objects, enums, variants, references, extensions) | pending |
 | 6 | Schemas (descriptors, builders, finalization, introspection, compatibility) | pending |
@@ -62,3 +62,32 @@ Done and building green (49/49 AUnit):
   equivalence across a 1-byte read buffer, malformed cases (leading zero,
   truncated fraction/exponent, unterminated string, bad literal, unescaped
   control, stray byte), and byte-limit enforcement.
+
+## Phase 3 — detail
+
+Done and building green (58/58 AUnit):
+- `Representation.JSON.Parser` — a deterministic, pull-based JSON **event**
+  reader (§22.2) driving the lexer. It validates the RFC 8259 grammar (a single
+  top-level value; objects, arrays, arbitrary nesting) and emits a flat event
+  stream: `Start_Object`/`End_Object`, `Start_Array`/`End_Array`, `Key`,
+  `String_Value`/`Number_Value`/`Boolean_Value`/`Null_Value`, `End_Of_Input`,
+  and `Error`. Each event carries its location and nesting depth.
+- Constant-space: only a bounded container stack (`Depth_Capacity`) and an
+  optional bounded key store are held; documents parse without materialising.
+- Bounded/deterministic, enforced before growth: `Max_Depth`,
+  `Max_Object_Members`, `Max_Array_Elements`, `Max_Total_Values`, and a
+  per-token `Work_Budget`. Each surfaces as an `Error` event with a stable id.
+- Duplicate object keys are rejected within a single object (REP-INV-002) using
+  a bounded per-object key store (`Key_Pool_Bytes` × `Key_Slots`); detection is
+  per-object (sibling/nested reuse is allowed) and can be disabled for pure
+  structural streaming. Store exhaustion fails closed.
+- Values-not-exceptions: malformed grammar, premature end, trailing input,
+  limit exhaustion, and source failure are `Error` events with stable machine
+  ids (`json.invalid-token`, `json.unexpected-end`, `json.trailing-input`,
+  `object.duplicate-field`, `limit.*`), never exceptions.
+- Tests (`parser_tests`): scalars, empty/populated structures, key/value
+  streams, nesting + depth limit, grammar errors (missing comma/colon, empty
+  member, bare/trailing comma, non-string key, empty/unterminated document),
+  trailing input, member/element/work-budget/total-value limits, duplicate-key
+  detection (incl. sibling/nested non-duplicates and detection-off pass-through),
+  and streaming equivalence across a 1-byte read buffer.

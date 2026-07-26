@@ -5,6 +5,7 @@ with Decimals_Tests;
 with Timestamps_Tests;
 with Escapes_Tests;
 with Lexer_Tests;
+with Parser_Tests;
 
 package body All_Suites is
 
@@ -19,6 +20,7 @@ package body All_Suites is
       Timestamps_Tests.Add_Tests (Result);
       Escapes_Tests.Add_Tests (Result);
       Lexer_Tests.Add_Tests (Result);
+      Parser_Tests.Add_Tests (Result);
       return Result;
    end Suite;
 

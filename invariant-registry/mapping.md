@@ -9,7 +9,8 @@
 | REP-INV-003 | `Numbers_Tests` (signed/unsigned boundaries + overflow) | proven (integer path) |
 | REP-INV-018 | `Decimals_Tests` (normalization, canonical equality, limits) | proven |
 | REP-INV-010 | dependency-boundary audit in `check_representation`; no package-level mutable state (audited) | audited |
-| REP-INV-005 | `Lexer_Tests.Test_Limits` (Max_String_Bytes enforced before capture; bounded Value scratch; Max_Input_Bytes) | proven (tokenizer byte limits) |
+| REP-INV-005 | `Lexer_Tests.Test_Limits` (Max_String_Bytes enforced before capture; bounded Value scratch; Max_Input_Bytes); `Parser_Tests.Test_Limits` (depth/members/elements/total-values/work-budget) | proven (tokenizer + parser limits) |
+| REP-INV-002 | `Parser_Tests.Test_Duplicate_Keys` (per-object duplicate rejection; sibling/nested non-duplicates; fail-closed store) | proven (parser, collision case) |
 
 Remaining REP-INV entries are `planned`; each gains a row here when its owning
 package and test land (see `docs/PHASE_STATUS.md`).

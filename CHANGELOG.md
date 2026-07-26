@@ -21,3 +21,9 @@ yet stable.
   `Representation.JSON.Lexer` — a deterministic, incremental, pull-based
   tokenizer with per-token locations, raw string/number values, bounded scratch,
   byte-limit enforcement, and stable machine error ids for malformed input.
+- Phase 3 JSON parser: `Representation.JSON.Parser` — a deterministic,
+  constant-space, pull-based event reader validating the RFC 8259 grammar. It
+  enforces depth, member, element, total-value, and work-budget limits before
+  growth, rejects duplicate object keys within an object (bounded, per-object,
+  optional), and reports malformed grammar / trailing input / limit exhaustion
+  as `Error` events with stable machine ids (REP-INV-002, REP-INV-005 evidence).

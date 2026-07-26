@@ -13,10 +13,10 @@ Status legend:
 | ID | Invariant | Owner | Status | Consequence if violated |
 |----|-----------|-------|--------|--------------------------|
 | REP-INV-001 | Identical typed input, version, schema, codec, options and extension set encode to byte-identical output | Representation.Typed_Codecs, .JSON | planned | non-reproducible bytes; broken signing/caching |
-| REP-INV-002 | Duplicate logical fields (canonical, alias, or collision) are never accepted | Representation.Objects | planned | ambiguous decode; smuggled overrides |
+| REP-INV-002 | Duplicate logical fields (canonical, alias, or collision) are never accepted | Representation.Objects (+ .JSON.Parser) | proven (collision) | ambiguous decode; smuggled overrides |
 | REP-INV-003 | Numeric overflow is never accepted or silently wrapped | Representation.Numbers (+ .Values decimal) | proven (integers) | corrupted values |
 | REP-INV-004 | Invalid UTF-8 is rejected | Representation.Text (Phase 1) | planned | mojibake; injection |
-| REP-INV-005 | Limits are enforced before any prohibited growth | Representation.Limits (+ .JSON.Lexer) | proven (tokenizer) | memory/CPU denial of service |
+| REP-INV-005 | Limits are enforced before any prohibited growth | Representation.Limits (+ .JSON.Lexer, .JSON.Parser) | proven (tokenizer + parser) | memory/CPU denial of service |
 | REP-INV-006 | Typed object decoding is field-order independent | Representation.Objects | planned | order-dependent bugs |
 | REP-INV-007 | Absent and null remain distinct | Representation.Optionals | planned | lost patch/merge semantics |
 | REP-INV-008 | Canonical encoding is idempotent | Representation.Documents.Canonicalization | planned | signing instability |

@@ -35,11 +35,20 @@ never touch HTTP, sockets, files, tasks, or persistence (§2, §3, §43).
 | `Representation.Paths` | Bounded structured location path + deterministic `Render`. | REP-INV-016; caller-owned mutable stack |
 | `Representation.Results` | `Outcome`: the single pass/fail verdict of an operation. | REP-INV (no-exception) 4.6 |
 | `Representation.Diagnostics` | Bounded, truncation-reporting collection of individual issues. | REP-INV-016/017 |
+| `Representation.Inputs` / `.Outputs` / `.Buffers` | Pull byte source / push sink / bounded buffer abstractions + in-memory adapters. | streaming, constant space |
+| `Representation.Text` | Incremental UTF-8 validation and scalar counting (SPARK_Mode). | REP-INV-004 |
+| `Representation.Numbers` | Overflow-safe signed/unsigned integer parsing (SPARK_Mode). | REP-INV-003 |
+| `Representation.Decimals` | Exact normalized decimal parse/image; never rounded. | REP-INV-018 |
+| `Representation.Timestamps` | RFC 3339 → canonical UTC instant. | value type |
+| `Representation.JSON_Escapes` | JSON string escape decode/encode (surrogate pairs). | REP-INV-004 (JSON) |
+| `Representation.JSON` | Pure JSON codec root; child packages hold the concrete codec. | — |
+| `Representation.JSON.Lexer` | Deterministic incremental tokenizer; locations, raw values, byte limits. | REP-INV-005 |
+| `Representation.JSON.Parser` | Constant-space event parser; grammar, depth/count/work limits, duplicate keys. | REP-INV-002/005 |
 
 Packages for later phases (documents, typed codecs, schemas, versions/
-migrations, JSON, envelopes/links/pagination, registry, testing support) are
-listed in `docs/PHASE_STATUS.md` and the design; they do not exist yet and must
-not be referenced until built.
+migrations, typed JSON, envelopes/links/pagination, registry, testing support)
+are listed in `docs/PHASE_STATUS.md` and the design; they do not exist yet and
+must not be referenced until built.
 
 ## Ownership and lifetime rules
 
