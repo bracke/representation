@@ -13,7 +13,7 @@ on compilation alone (§43).
 | 4 | Document model (bounded arena, builders/readers, equality, JSON document codec, canonicalization) | **done** |
 | 5 | Typed contracts/codecs (fields, optional/null/default, arrays, objects, enums, variants, references, extensions) | **done** |
 | 6 | Schemas (descriptors, builders, finalization, introspection, compatibility) | **done** |
-| 7 | Versions + migrations (registry, graph validation, typed adapters, document migrations) | pending |
+| 7 | Versions + migrations (registry, graph validation, typed adapters, document migrations) | **done** |
 | 8 | Typed JSON (direct decode/encode, compact/pretty/canonical, streaming, diagnostics) | pending |
 | 9 | Common models (envelopes, metadata, links, pagination, codec registry) | pending |
 | 10 | Examples + integration guidance | pending |
@@ -169,3 +169,22 @@ Done and building green (102/102 AUnit):
   validate ok / type-mismatch / non-object root / missing / unknown, and the
   four compatibility outcomes (identical, missing-required, type-mismatch,
   unknown-rejected vs ignore-tolerated).
+
+## Phase 7 — detail
+
+Done and building green (107/107 AUnit):
+- `Representation.Versions` — a bounded, caller-owned registry naming the Current
+  version and the older versions accepted via migration. `Resolve` never silently
+  downgrades: a newer version is `Version_Too_New` (refused, not treated as
+  Current) and an unregistered older version is `Version_Unsupported`
+  (REP-INV-015). Immutable after `Finalize`.
+- `Representation.Migrations` — a caller-owned set of forward-only upgrade steps,
+  each carrying a `Transform` that rewrites the document value. At most one step
+  may leave a version, so the path between two versions is unique and migration
+  is deterministic (REP-INV-014); forward-only steps guarantee termination.
+  `Plan` reports path existence/absence without touching a document; `Migrate`
+  applies the chain in order and reports `No_Path` / `Failed` / `Cycle`.
+- Tests (`versions_tests`): resolve (current/migratable/too-new/unsupported),
+  version-set immutability, migration graph (unique-source determinism,
+  forward-only, plan ok/no-path), chain application over a Document, and
+  migrate errors (no-path, failing transform).

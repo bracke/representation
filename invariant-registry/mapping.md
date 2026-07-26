@@ -22,6 +22,8 @@
 | REP-INV-019 | `Objects_Tests.Test_Extensions` (core field name refused as extension) | proven |
 | REP-INV-020 | `Schemas_Tests.Test_Immutable_After_Finalize` (Add_Field refused post-Finalize; count unchanged) | proven (schemas) |
 | Compatibility | `Schemas_Tests.Test_Compatibility` (missing-required / type-mismatch / unknown-rejected vs ignore) | proven (Compatibility_Failure semantics) |
+| REP-INV-014 | `Versions_Tests.Test_Migration_Graph` (unique source per version; forward-only; deterministic plan) | proven |
+| REP-INV-015 | `Versions_Tests.Test_Resolve` (too-new refused, never downgraded; unregistered unsupported) | proven |
 
 Remaining REP-INV entries are `planned`; each gains a row here when its owning
 package and test land (see `docs/PHASE_STATUS.md`).

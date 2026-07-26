@@ -20,6 +20,9 @@ Typed contracts/codecs (Phase 5, implemented):
 Schemas (Phase 6, implemented):
 `.Schemas`, `.Schemas.Compatibility`.
 
+Versions + migrations (Phase 7, implemented):
+`.Versions`, `.Migrations`.
+
 Later phases (planned, see `docs/PHASE_STATUS.md`):
-`.Versions`, `.Migrations(.*)`, `.Codecs(.Registries)`,
-`.Envelopes`, `.Metadata`, `.Links`, `.Pagination`, `.Testing`.
+`.Codecs(.Registries)`, `.Envelopes`, `.Metadata`, `.Links`, `.Pagination`,
+`.Testing`.

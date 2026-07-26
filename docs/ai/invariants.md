@@ -25,8 +25,8 @@ Status legend:
 | REP-INV-011 | Unknown-field behaviour is explicit (Reject/Ignore/Preserve) | Representation.Objects, .Extensions | proven | silent data loss or injection |
 | REP-INV-012 | Variant dispatch is bound to declared discriminators only | Representation.Variants | proven | type confusion |
 | REP-INV-013 | Schema and field identifiers are stable and locale-neutral | Representation.Identifiers | proven | contract breakage on rename |
-| REP-INV-014 | Migration paths are deterministic | Representation.Migrations | planned | divergent upgrades |
-| REP-INV-015 | Unsupported versions never silently downgrade | Representation.Versions | planned | data corruption |
+| REP-INV-014 | Migration paths are deterministic | Representation.Migrations | proven | divergent upgrades |
+| REP-INV-015 | Unsupported versions never silently downgrade | Representation.Versions | proven | data corruption |
 | REP-INV-016 | Diagnostics identify the failing structured path | Representation.Diagnostics, .Paths | proven | unusable errors |
 | REP-INV-017 | Sensitive values are omitted from diagnostics by default | Representation.Diagnostics, .Errors | planned | credential/PII leakage |
 | REP-INV-018 | Exact numerics are never silently rounded | Representation.Decimals | proven | financial corruption |

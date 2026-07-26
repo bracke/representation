@@ -58,11 +58,12 @@ never touch HTTP, sockets, files, tasks, or persistence (§2, §3, §43).
 | `Representation.Typed_Codecs` (generic) | End-to-end typed codec: JSON source→doc→validate→Read; Write→doc→JSON sink. | composes the layer |
 | `Representation.Schemas` | Declarative object schema (fields + type kinds + unknown policy); immutable after Finalize; schema-driven Validate. | REP-INV-020 |
 | `Representation.Schemas.Compatibility` | Directional read-compatibility check between two schemas. | Compatibility_Failure |
+| `Representation.Versions` | Bounded supported-version registry; Resolve never silently downgrades. | REP-INV-015 |
+| `Representation.Migrations` | Forward-only, deterministic migration-step set; Plan + Migrate over a Document. | REP-INV-014 |
 
-Packages for later phases (versions/migrations, typed-JSON convenience,
-envelopes/links/pagination, registry, testing support) are listed in
-`docs/PHASE_STATUS.md` and the design; they do not exist yet and must not be
-referenced until built.
+Packages for later phases (typed-JSON convenience, envelopes/links/pagination,
+registry, testing support) are listed in `docs/PHASE_STATUS.md` and the design;
+they do not exist yet and must not be referenced until built.
 
 ## Ownership and lifetime rules
 

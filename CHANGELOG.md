@@ -47,3 +47,8 @@ yet stable.
   (REP-INV-020), with schema-driven `Validate` (adds `field.type-mismatch`) —
   and `Representation.Schemas.Compatibility`, a directional read-compatibility
   check (missing-required / type-mismatch / unknown-rejected).
+- Phase 7 versions + migrations: `Representation.Versions` — a bounded supported-
+  version registry whose `Resolve` never silently downgrades (REP-INV-015) — and
+  `Representation.Migrations`, a forward-only migration-step set with unique
+  source per version (deterministic paths — REP-INV-014), `Plan`, and a `Migrate`
+  that applies the chain over a Document.
