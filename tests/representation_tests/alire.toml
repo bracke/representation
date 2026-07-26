@@ -1,0 +1,32 @@
+name = "representation_tests"
+description = "AUnit test suite for the representation library"
+version = "0.1.0-dev"
+authors = ["Bent Bracke"]
+maintainers = ["Bent Bracke <bent@bracke.dk>"]
+maintainers-logins = ["bracke"]
+licenses = "MIT OR Apache-2.0 WITH LLVM-exception"
+website = ""
+tags = []
+
+executables = ["tests"]
+
+[[depends-on]]
+gnat_native = "=15.2.1"
+
+[[depends-on]]
+aunit = "^26.0.0"
+
+[[depends-on]]
+representation = "*"
+
+[[depends-on]]
+project_tools = "*"
+
+[[pins]]
+representation = { path = "../.." }
+
+[[pins]]
+project_tools = { path = "../../../project_tools" }
+
+[build-profiles]
+"*" = "development"
