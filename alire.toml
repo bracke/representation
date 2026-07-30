@@ -7,6 +7,7 @@ maintainers = ["Bent Bracke <bent@bracke.dk>"]
 maintainers-logins = ["bracke"]
 licenses = "MIT OR Apache-2.0 WITH LLVM-exception"
 website = "https://github.com/bracke/representation"
+long-description = "Strongly typed, transport-independent framework for defining, validating, versioning, encoding, and decoding stable external application representations in Ada 2022."
 
 tags = ["representation", "serialization", "json", "schema", "headless"]
 
