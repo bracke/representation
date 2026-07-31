@@ -225,6 +225,16 @@ begin
    Check_Surface;
    Check_Dependency_Boundary;
 
+   declare
+      Stale_Docs : constant String :=
+        Project_Tools.Release_Checks.Stale_Doc_Scaffolding (The_Root);
+   begin
+      if Stale_Docs /= "" then
+         Fail ("docs carry stale scaffolding -- describe current state, not a "
+               & "future phase:" & ASCII.LF & Stale_Docs);
+      end if;
+   end;
+
    if Proc.Has_Argument ("--release")
      or else Proc.Has_Argument ("--release-strict")
    then
